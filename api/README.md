@@ -1,6 +1,6 @@
 **Domain objects**
 
-#####**User**
+*User*
 ```csharp
 {
 	"id": 1,
