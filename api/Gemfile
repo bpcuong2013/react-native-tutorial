@@ -1,0 +1,19 @@
+source 'https://rubygems.org'
+
+gem 'grape'
+gem 'rspec'
+gem 'json'
+gem 'rake'
+gem "activerecord", "< 5.0.0"
+gem 'sinatra-activerecord'
+gem 'rack-jsonp-middleware'
+gem 'pg'
+gem 'octokit'
+gem 'pushmeup'
+gem 'rack-cors', :require => 'rack/cors'
+gem 'nokogiri'
+gem 'jwt'
+gem 'sendgrid-ruby'
+
+# use server puma for both development and production
+gem "puma"
