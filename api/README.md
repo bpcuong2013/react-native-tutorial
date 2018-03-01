@@ -1,4 +1,5 @@
-#**Domain objects**
+**Domain objects**
+
 #####**User**
 ```csharp
 {
@@ -13,6 +14,6 @@
 }
 ```
 
-#**Deploy to heroku:** 
-- Use: heroku git:remote -a <your heroku app name> to link to your heroku app
+**Deploy to heroku:** 
+- From root folder, use: heroku git:remote -a <your heroku app name> to link to your heroku app
 - Push code: git subtree push --prefix api heroku master
