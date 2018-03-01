@@ -1,7 +1,7 @@
 class UserManager < BaseManager
      
   def get_users(offset, limit)
-    return json_users(User.offset(offset).limit(limit))
+    return JSONResult.new(true, json_users(User.offset(offset).limit(limit)))
   end
   
   def create_user(email, first_name, last_name, bio)
@@ -13,7 +13,7 @@ class UserManager < BaseManager
                        :first_name => first_name, 
                        :last_name => last_name,
                        :bio => bio)
-    return json_user(user)    
+    return JSONResult.new(true, json_user(user))
   end
       
 end
