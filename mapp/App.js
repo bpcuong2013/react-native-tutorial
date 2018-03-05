@@ -4,7 +4,7 @@ import { Router, Scene, Reducer } from 'react-native-router-flux';
 import { Provider } from 'react-redux';
 import Store from './src/store';
 
-import { Home, NewUser } from './src/components';
+import { Home, NewUser, UserDetail } from './src/components';
 
 export default class App extends React.Component {
   render() {
@@ -15,6 +15,7 @@ export default class App extends React.Component {
             <Scene key="root">
               <Scene key="home" component={Home} title="Home" initial />
               <Scene key="new_user" component={NewUser} title="New User" />
+              <Scene key="user_detail" component={UserDetail} title="User Details" />
             </Scene>
           </Router>
         </View>

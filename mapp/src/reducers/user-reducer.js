@@ -12,7 +12,7 @@ export default function userReducer (state = initialState, action) {
         case LIST_USERS:
             return Object.assign({}, state, {
                 isFetching: true,
-                data: null,
+                data: [],
                 hasError: false,
                 errorMessage: null
             });

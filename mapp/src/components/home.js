@@ -2,7 +2,7 @@
 
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
-import { StyleSheet, Text, View, Button, FlatList } from 'react-native';
+import { StyleSheet, Text, View, Button, ListView } from 'react-native';
 import { List, ListItem } from "react-native-elements";
 
 import { Actions } from "react-native-router-flux";
@@ -16,7 +16,17 @@ class Home extends Component {
         this.props.getUsers();
     }
 
-    _keyExtractor = (item, index) => item.email;
+    ListViewItemSeparatorLine = () => {
+        return (
+            <View
+                style={{
+                    height: .5,
+                    width: "100%",
+                    backgroundColor: "#000",
+                }}
+            />
+        );
+    }
 
     render() {
         if (this.props.users.isFetching) {
@@ -40,25 +50,32 @@ class Home extends Component {
             );
         }
 
-        console.log(this.props.users.data);
+        const ds = new ListView.DataSource({ rowHasChanged: (r1, r2) => r1 !== r2 });
         return (
-            <FlatList 
-                data={this.props.users.data} 
-                style={{ padding: 0, margin: 0, backgroundColor: '#fff' }}
-                keyExtractor={this._keyExtractor}
-                renderItem={({ item }) => (
-                    <ListItem style={{ padding: 0, margin: 0 }}
-                        title={`${item.first_name} ${item.last_name}`}
-                        subtitle={item.email} />
-                )}>
-            </FlatList>
+            <View style={styles.MainContainer}>
+                <ListView
+                    dataSource={this.props.users}
+                    renderSeparator={this.ListViewItemSeparatorLine}
+                    enableEmptySections={true}
+                    renderRow={
+                        (user) => <Text style={styles.rowViewContainer} onPress={() => this.goToUserDetail(user)}>{user.email}</Text>
+                    } />
+            </View>
         );
+    }
+
+    goToUserDetail(user) {
+        Actions.user_detail({user: user});
     }
 }
 
-const mapStateToProps = state => {
+const ds = new ListView.DataSource({
+    rowHasChanged: (r1, r2) => r1 !== r2
+});
+
+const mapStateToProps = (state) => {
     return {
-        users: state.users
+        users: ds.cloneWithRows(state.users.data)
     }
 }
 
@@ -67,3 +84,30 @@ const mapDispatchToProps = {
 };
 
 export default connect(mapStateToProps, mapDispatchToProps)(Home);
+
+const styles = StyleSheet.create(
+    {
+        MainContainer:
+            {
+                justifyContent: 'center',
+                flex: 1,
+                margin: 10
+            },
+
+        TextStyle:
+            {
+                fontSize: 23,
+                textAlign: 'center',
+                color: '#000',
+            },
+
+        rowViewContainer:
+            {
+
+                fontSize: 18,
+                paddingRight: 10,
+                paddingTop: 10,
+                paddingBottom: 10,
+
+            }
+    });
